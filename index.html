@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=1920">
+    <title>UDP Stream Player</title>
+
+    <!--
+        IMPORTANT: avplayextension.js must be loaded for UDP/RTP streaming on
+        Tizen 6+ Hospitality TVs. It enables UDP/RTP URL support on the standard
+        webapis.avplay object; without it, UDP URLs throw
+        PLAYER_ERROR_NOT_SUPPORTED_FORMAT.
+    -->
+    <script type="text/javascript" src="$WEBAPIS/webapis/webapis.js"></script>
+    <script type="text/javascript" src="$WEBAPIS/avplayextension/avplayextension.js"></script>
+
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+    <div id="screen">
+
+        <!-- Player occupies full screen; AVPlay renders into this object element -->
+        <object id="av-player"
+                type="application/avplayer"
+                style="position:absolute; left:0; top:0; width:1920px; height:1080px;">
+        </object>
+
+        <!-- HUD overlay — fades out during playback -->
+        <div id="hud">
+            <div id="status-bar">
+                <span id="channel-label">UDP Stream Player</span>
+                <span id="status-text">Stopped</span>
+            </div>
+            <div id="url-display" >udp://—</div>
+            <div id="controls-hint">PLAY  ·  STOP  ·  ◄ / ► change channel  ·  BACK exit</div>
+        </div>
+
+        <!-- Error overlay -->
+        <div id="error-overlay" class="hidden">
+            <div id="error-title">Playback Error</div>
+            <div id="error-message"></div>
+            <div id="error-hint">Press PLAY to retry  ·  ◄ / ► to change channel</div>
+        </div>
+
+    </div>
+
+    <script src="js/app.js"></script>
+</body>
+</html>

@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<widget xmlns="http://www.w3.org/ns/widgets"
+        xmlns:tizen="http://tizen.org/ns/widgets"
+        id="http://yourdomain.com/UDPStreamPlayer"
+        version="1.0.0">
+
+    <tizen:application id="UDPPlayer.App"
+                       package="UDPPlayer"
+                       required_version="6.0"/>
+
+    <content src="index.html"/>
+
+    <name>UDP Stream Player</name>
+    <description>UDP/RTP multicast stream player for Samsung Hospitality TV (Tizen 6+)</description>
+
+    <!--
+        REQUIRED PRIVILEGES
+        Without these the app will silently fail or throw security errors.
+    -->
+
+    <!-- Network access -->
+    <tizen:privilege name="http://tizen.org/privilege/internet"/>
+
+    <!-- AVPlay / AVPlayExtension media player -->
+    <tizen:privilege name="http://developer.samsung.com/privilege/avplay"/>
+
+    <!-- TV Window — needed to render video into the <object> element -->
+    <tizen:privilege name="http://tizen.org/privilege/tv.window"/>
+
+    <!-- Remote control key registration -->
+    <tizen:privilege name="http://tizen.org/privilege/tv.inputdevice"/>
+
+    <!-- Application lifecycle (exit) -->
+    <tizen:privilege name="http://tizen.org/privilege/application.launch"/>
+
+    <!-- Allow network access from the app -->
+    <access origin="*" subdomains="true"/>
+
+    <tizen:setting screen-orientation="landscape"
+                   context-menu="disable"
+                   background-support="enable"
+                   encryption="disable"
+                   install-location="auto"
+                   hw-key-event="true"/>
+
+    <!--
+        icon.png — provide a 117×117 PNG icon for the app launcher.
+        Replace with your own asset before submission.
+    -->
+    <icon src="icon.png"/>
+
+</widget>
