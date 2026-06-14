@@ -1,0 +1,6 @@
+.claude/*
+CLAUDE.md
+bin/
+obj/
+doc/*.html
+*.exe
