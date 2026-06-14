@@ -116,9 +116,19 @@ function playChannel(index) {
         );
 
     } catch (e) {
-        log('Exception during player setup: ' + e.message);
+        log('Exception during player setup: ' + e.name + ': ' + e.message);
         playerState = 'ERROR';
-        showError('Player setup error', e.message);
+        if (e.name === 'SecurityError' || /security/i.test(e.message)) {
+            showError(
+                'Player setup error (SecurityException)',
+                'The avplay privilege is not granted. Sign the app with a Samsung ' +
+                'public (author + distributor) certificate and register this TV\'s ' +
+                'DUID to it, then re-deploy. A partner certificate is only needed ' +
+                'for DRM playback.'
+            );
+        } else {
+            showError('Player setup error', e.message);
+        }
     }
 }
 
