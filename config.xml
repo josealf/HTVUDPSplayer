@@ -32,6 +32,9 @@
 
     <!-- Application lifecycle (exit) -->
     <tizen:privilege name="http://tizen.org/privilege/application.launch"/>
+	
+    <!-- Stream Player Privilege (Partner Level) -->
+    <tizen:privilege name="http://developer.samsung.com/privilege/streamingtvplayer"/>
 
     <!-- Allow network access from the app -->
     <access origin="*" subdomains="true"/>

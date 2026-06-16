@@ -4,8 +4,12 @@
  *
  * Key differences from standard AVPlay (Tizen 3):
  *  - Use webapis.avplay; loading avplayextension.js enables UDP/RTP URL support
- *  - Multicast address range 234.0.0.0–238.255.255.255 is recommended
- *    (224.x.x.x and 239.x.x.x are NOT supported)
+ *  - UDP/RTP playback requires the streamingtvplayer privilege (partner-level)
+ *    in config.xml AND signing with a Samsung partner-level certificate
+ *  - Multicast URLs use the form udp://@IP:Port (note the '@')
+ *  - Samsung docs recommend the 234.0.0.0–238.255.255.255 range and say
+ *    224.x.x.x / 239.x.x.x are NOT supported — but 239.x.x.x worked in our
+ *    tests (confirmed: udp://@239.193.133.5:5000)
  *  - A wired network connection is required; Wi-Fi will not work
  *  - Each UDP packet must start with sync byte 0x47
  *  - IGMPv2 or newer must be supported by the network switch/router
@@ -17,9 +21,9 @@
 // Channel list — edit these to match your multicast streams
 // ---------------------------------------------------------------------------
 var CHANNELS = [
-    { name: 'Channel 1',  url: 'udp://235.1.1.1:5004' },
-    { name: 'Channel 2',  url: 'udp://235.1.1.2:5004' },
-    { name: 'Channel 3',  url: 'rtp://235.1.1.3:5004' }   // RTP uses same format
+    { name: 'Channel 1',  url: 'udp://@239.193.133.5:5000' },  // confirmed working
+    { name: 'Channel 2',  url: 'udp://@235.1.1.2:5004' },
+    { name: 'Channel 3',  url: 'rtp://@235.1.1.3:5004' }   // RTP uses same form
 ];
 
 // ---------------------------------------------------------------------------
@@ -85,8 +89,8 @@ function playChannel(index) {
 
     try {
         // 1. Open the URL
-        //    UDP format:  udp://IP:Port
-        //    RTP format:  rtp://IP:Port
+        //    UDP format:  udp://@IP:Port   ('@' = join the multicast group)
+        //    RTP format:  rtp://@IP:Port
         player.open(channel.url);
 
         // 2. Bind the video output to the <object> element in the DOM
@@ -121,10 +125,9 @@ function playChannel(index) {
         if (e.name === 'SecurityError' || /security/i.test(e.message)) {
             showError(
                 'Player setup error (SecurityException)',
-                'The avplay privilege is not granted. Sign the app with a Samsung ' +
-                'public (author + distributor) certificate and register this TV\'s ' +
-                'DUID to it, then re-deploy. A partner certificate is only needed ' +
-                'for DRM playback.'
+                'UDP/RTP playback requires the streamingtvplayer privilege ' +
+                '(partner-level) in config.xml AND signing with a Samsung ' +
+                'partner-level certificate. Verify both, then re-deploy.'
             );
         } else {
             showError('Player setup error', e.message);
@@ -181,8 +184,9 @@ function makeListener() {
                 hint = 'Stream format not supported. Check codec (MPEG-TS required) ' +
                        'and that sync byte 0x47 is present.';
             } else if (eventType === 'PLAYER_ERROR_CONNECTION_FAILED') {
-                hint = 'Cannot reach stream. Verify wired network, multicast address ' +
-                       '(use 234–238.x.x.x range), and IGMP support on switch.';
+                hint = 'Cannot reach stream. Verify wired network, multicast ' +
+                       'address (docs recommend 234–238.x.x.x; 239.x worked for ' +
+                       'us), the udp://@IP:Port form, and IGMP on the switch.';
             }
 
             showError('Playback error: ' + eventType, hint);
