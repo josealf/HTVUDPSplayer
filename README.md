@@ -3,7 +3,7 @@
 ## Files
 
 ```
-udp-player/
+HTVUDPSPlayer/
 ├── index.html      — App entry point; loads avplayextension.js
 ├── config.xml      — Tizen manifest with required privileges
 ├── js/app.js       — Player logic and remote-control handling
@@ -74,3 +74,19 @@ udp-player/
 - The TV model may not have the IPTV hardware decoder
 - Check the engineering menu: `Option → MRT Option → Option Num`
   If there is no "Num of IPTV" entry, the hardware is absent and UDP will not work
+
+
+## License
+
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://apache.org
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ *
