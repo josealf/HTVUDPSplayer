@@ -1,5 +1,11 @@
 # UDP Stream Player — Samsung Hospitality TV (Tizen 6+)
 
+This is an UDP Stream Player project mainly targeting Samsung Hospitality TVs, but it probably works on other Samsung devices running Tyzen 6 or later OS.
+
+This project is the result of a collaborative effort to resolve a critical compatibility issue where AVPlay UDP streams function correctly on Tizen 3 but fail on Tizen 6 Hospitality TVs. The technical background and discussion for this fix can be found in this [Spiceworks community thread.](https://community.spiceworks.com/t/avplay-udp-stream-works-on-tizen-3-but-fails-on-tizen-6-hospitality-tv/1254380) 
+
+This is a work in progress. As of Jun 17, 2026 playimg RTP Streams have not been tested.
+
 ## Files
 
 ```
@@ -60,7 +66,7 @@ HTVUDPSPlayer/
 
 **`PLAYER_ERROR_CONNECTION_FAILED`**
 - Confirm TV is on a wired connection
-- Verify the multicast address (docs recommend `234–238.x.x.x`; `239.x.x.x` worked in our tests)
+- Verify the multicast address (iSamsung docs recommend `234–238.x.x.x` but `239.x.x.x` worked in our tests)
 - Confirm the URL uses the `udp://@IP:Port` form
 - Check the network switch has IGMP snooping enabled
 - Confirm the stream is actively broadcasting before the TV tries to join
@@ -78,15 +84,15 @@ HTVUDPSPlayer/
 
 ## License
 
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *     http://apache.org
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- *
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+     http://apache.org
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+
